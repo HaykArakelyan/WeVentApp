@@ -14,7 +14,15 @@ import CustomInput from '../components/CustomInput.js';
 import CustomButton from "../components/CustomButton.js";
 import IconBoxes from '../components/IconBoxes';
 
-function LoginScreen() {
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { setIsSkipped } from "../store/isSkippedSlice.js";
+
+function LoginScreen({ navigation }) {
+
+    const users = useSelector(state => state.users.users._W)
+    const { isSkipped } = useSelector(state => state.isSkipped)
 
     const [isHidden, setIsHidden] = useState(false);
 
@@ -27,16 +35,23 @@ function LoginScreen() {
 
     const handleLoginPress = () => {
         if (login.length === 0 || password.length === 0) {
+            alert("Empty data!")
             return;
         }
-        console.log({
-            login,
-            password,
-        });
+        const user = users.find((item) => item.login === login)
+        if (user && user.password === password) {
+            navigation.navigate("HomeScreen")
+        } else {
+            alert("Wrong data!")
+        }
     }
 
     const handleIconPress = () => {
         console.log("Icon Press");
+    }
+
+    const handleNewAccPress = () => {
+        navigation.navigate("RegisterScreen")
     }
 
     return (
@@ -121,9 +136,7 @@ function LoginScreen() {
                         <Text style={styles.newAccText}>
                             You dont have an account?
                         </Text>
-                        <TouchableOpacity
-                            style={{}}
-                        >
+                        <TouchableOpacity onPress={() => handleNewAccPress()}>
                             <Text style={styles.newAccInnerText}> Register here</Text>
                         </TouchableOpacity>
                     </View>
@@ -135,7 +148,8 @@ function LoginScreen() {
 
 const styles = StyleSheet.create({
     superContainer: {
-        flex: 1
+        backgroundColor: colors.white,
+        flex: 1,
     },
     container: {
         flex: 1,
