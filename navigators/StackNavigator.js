@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "../screens/LoginScreen";
-import HomeScreen from "../screens/HomeScreen";
+import Dashboard from "../screens/Dashboard";
 import RegisterScreen from "../screens/RegisterScreen";
 
 import React from "react";
@@ -19,7 +19,7 @@ function StackNavigator() {
         <Stack.Navigator
             initialRouteName={
                 isSkipped
-                    ? "HomeScreen"
+                    ? "Dashboard"
                     : "LoginScreen"
             }
         >
@@ -31,10 +31,10 @@ function StackNavigator() {
                 }}
             />
             <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
+                name="Dashboard"
+                component={Dashboard}
                 options={{
-                    headerShown: true,
+                    headerShown: false,
                 }}
             />
             <Stack.Screen

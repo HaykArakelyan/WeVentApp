@@ -40,7 +40,15 @@ function LoginScreen({ navigation }) {
         }
         const user = users.find((item) => item.login === login)
         if (user && user.password === password) {
-            navigation.navigate("HomeScreen")
+            navigation.navigate("Dashboard", {
+                screen: "HomeScreen",
+                params: {
+                    login: login,
+                    password: password,
+                    name: user.name,
+                },
+            }
+            );
         } else {
             alert("Wrong data!")
         }

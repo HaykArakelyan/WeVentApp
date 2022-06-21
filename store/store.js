@@ -5,10 +5,12 @@ import { persistStore, persistReducer } from "redux-persist";
 
 import users from "./usersSlice";
 import isSkipped from "./isSkippedSlice";
+import events from "./eventsSlice";
 
 const rootReducer = combineReducers({
     isSkipped,
     users,
+    events,
 })
 
 const persistConfig = {
