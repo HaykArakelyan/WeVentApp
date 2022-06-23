@@ -17,11 +17,15 @@ import IconBoxes from '../components/IconBoxes';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
+import { useGetUsersQuery } from '../store/users';
+
 import { setIsSkipped } from "../store/isSkippedSlice.js";
 
 function LoginScreen({ navigation }) {
 
-    const users = useSelector(state => state.users.users._W)
+    const usersRespond = useGetUsersQuery();
+    const users = usersRespond.data;
+
     const { isSkipped } = useSelector(state => state.isSkipped)
 
     const [isHidden, setIsHidden] = useState(false);

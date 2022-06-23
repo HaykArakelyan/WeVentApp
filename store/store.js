@@ -3,14 +3,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { persistStore, persistReducer } from "redux-persist";
 
-import users from "./usersSlice";
 import isSkipped from "./isSkippedSlice";
-import events from "./eventsSlice";
+
+import { setupListeners } from "@reduxjs/toolkit/query"
+import { usersApi } from "./users";
+import { eventsApi } from "./events.js";
+import { topEventApi } from "./topEvent";
 
 const rootReducer = combineReducers({
     isSkipped,
-    users,
-    events,
+    [eventsApi.reducerPath]: eventsApi.reducer,
+    [usersApi.reducerPath]: usersApi.reducer,
+    [topEventApi.reducerPath]: topEventApi.reducer,
 })
 
 const persistConfig = {
@@ -26,8 +30,14 @@ const Store = configureStore({
         getDefaultMiddleware({
             immutableCheck: false,
             serializableCheck: false,
-        })
+        }).concat([
+            eventsApi.middleware,
+            usersApi.middleware,
+            topEventApi.middleware,
+        ])
 })
+
+setupListeners(Store.dispatch)
 
 export const Persistor = persistStore(Store)
 export default Store;

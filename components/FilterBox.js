@@ -1,26 +1,26 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { colors } from '../colors/colors';
 
-function FilterBox({ str }) {
-
-    console.log(str == "");
-    // const temp = str.replaceAll("_", " ");
-
+function FilterBox({ str, activeStyle, isActive, updateActive }) {
     return (
-        <View style={styles.container}>
+
+
+        <TouchableOpacity
+            style={[styles.container, isActive && activeStyle]}
+            onPress={() => updateActive(str)}
+        >
             <Text>{str.replace(/_/g, " ")}</Text>
-            {/* <Text>{str}</Text> */}
-        </View>
+        </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
         backgroundColor: colors.darkWhite,
+        borderRadius: 5,
         margin: 5,
-        borderRadius: 5
+        padding: 10,
     },
 })
 
